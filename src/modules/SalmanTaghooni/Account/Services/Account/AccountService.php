@@ -31,17 +31,6 @@ class AccountService implements AccountServiceInterface
 
     public function addTokenData($request, $header)
     {
-        if (!array_key_exists("phoneNumber", $request)) {
-            if (array_key_exists("authorization", $header)) {
-                if(isset($header['authorization'][0])){
-                    $token = str_replace("Bearer ", "", $header['authorization'][0]);
-                    $tokenParts = explode(".", $token);
-                    $tokenPayload = base64_decode($tokenParts[1]);
-                    $jwtPayload = json_decode($tokenPayload, true);
-                    return (array_merge($jwtPayload, $request));
-                }
-            }
-        }
         return $request;
     }
     public function userBasicInformation($request)

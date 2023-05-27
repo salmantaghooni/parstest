@@ -31,19 +31,7 @@ class CheckInformationPersonService implements CheckInformationPersonServiceInte
         $this->checkSumWithRequest = $this->addTokenData($this->checkSumWithRequest, $request->headers->all());
     }
 
-    public function addTokenData($request, $header)
-    {
-        if (!array_key_exists("phoneNumber", $request)) {
-            if (array_key_exists("authorization", $header)) {
-                $token = str_replace("Bearer ", "", $header['authorization'][0]);
-                $tokenParts = explode(".", $token);
-                $tokenPayload = base64_decode($tokenParts[1]);
-                $jwtPayload = json_decode($tokenPayload, true);
-                return (array_merge($jwtPayload, $request));
-            }
-        }
-        return $request;
-    }
+
 
     public function index(): ?\Psr\Http\Message\ResponseInterface
     {
